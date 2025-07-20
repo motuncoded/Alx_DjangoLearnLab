@@ -1,5 +1,6 @@
-# Update the title to "Nineteen Eighty-Four" and save
-book.title = "Nineteen Eighty-Four"
-book.save()
-# Confirm the update
-print(book)
+# Delete the book instance
+book.delete()
+
+# Confirm deletion by trying to retrieve all books
+all_books = Book.objects.all()
+print(all_books)
