@@ -15,3 +15,18 @@ class LibraryDetailView(DetailView):
     model = Library
     template_name = "relationship_app/library_detail.html"
     context_object_name = 'library'
+
+
+# LibraryProject/relationship_app/views.py doesn't contain: ["UserCreationForm()", "relationship_app/register.html"]
+# Function to handle user registration
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return render(request, 'relationship_app/register_success.html', {'user': user})
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})
+from django.contrib.auth.views import LogoutView, LoginView
