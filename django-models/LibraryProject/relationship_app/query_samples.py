@@ -1,7 +1,6 @@
 # query_samples.py
 
 from relationship_app.models import Author, Book, Library, Librarian
-
 # -- Query all books by a specific author --
 author_name = "George Orwell"
 author = Author.objects.get(name=author_name)
