@@ -1,23 +1,41 @@
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import permission_required
+from .models import Book
 
+# ...existing imports...
 
+@permission_required('bookshelf.can_create', raise_exception=True)
+def add_book(request):
+    # Logic to add a book
+    pass
 
+@permission_required('bookshelf.can_delete', raise_exception=True)
+def delete_book(request, pk):
+    # Logic to delete a book
+    pass
 
-from django.urls import path
-from .views import list_books, add_book, edit_book, delete_book, LibraryDetailView
-from . import views
-from django.contrib.auth.views import LoginView, LogoutView
-urlpatterns = [
-    path('books/', list_books, name='list-books'),
-    path('library/<int:pk>/', LibraryDetailView.as_view(), name='library-detail'),
-    path('register/', views.register, name='register'),
-    path('logout/', LogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),
-    path('login/', LoginView.as_view(template_name='relationship_app/login.html'), name='login'),
-    path('admin/', views.admin_view, name='admin-view'),
-    path('librarian/', views.librarian_view, name='librarian-view'),
-    path('member/', views.member_view, name='member-view'),
-    # ... other URL patterns ...
-    # Add, edit, and delete book URLs
-    path('add_book/', add_book, name='add-book'),
-    path('edit_book/<int:pk>/', edit_book, name='edit-book'),
-    path('books/<int:pk>/delete/', delete_book, name='delete-book'),
-]
+def book_list(request):
+    books = Book.objects.all()
+    return render(request, 'bookshelf/book_list.html', {'books': books})
+
+# ...existing code...
+# filepath: c:\Users\Dell\Desktop\Alx_DjangoLearnLab\advanced_features_and_security\LibraryProject\bookshelf\views.py
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import permission_required
+from .models import Book
+
+# ...existing imports...
+
+@permission_required('bookshelf.can_create', raise_exception=True)
+def add_book(request):
+    # Logic to add a book
+    pass
+
+@permission_required('bookshelf.can_delete', raise_exception=True)
+def delete_book(request, pk):
+    # Logic to delete a book
+    pass
+
+def book_list(request):
+    books = Book.objects.all()
+    return render(request, 'bookshelf/book_list.html', {'books': books})
