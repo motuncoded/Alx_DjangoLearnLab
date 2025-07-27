@@ -16,7 +16,8 @@ urlpatterns = [
     # ... other URL patterns ...
 
     # Add, edit, and delete book URLs
-    path('books/add/', add_book, name='add-book'),
-    path('books/<int:pk>/edit/', edit_book, name='edit-book'),
+  path('add_book/', add_book, name='add-book'),
+    path('edit_book/<int:pk>/', edit_book, name='edit-book'),
     path('books/<int:pk>/delete/', delete_book, name='delete-book'),
 ]
+#
