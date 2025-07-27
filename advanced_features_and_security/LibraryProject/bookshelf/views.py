@@ -1,13 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from .models import Book
-
+from .forms import ExampleForm
 # ...existing imports...
 
 @permission_required('bookshelf.can_create', raise_exception=True)
 def add_book(request):
-    # Logic to add a book
-    pass
+    if request.method == "POST":
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            # Logic to add a book
+            pass
+    else:
+        form = ExampleForm()
+    return render(request, 'bookshelf/add_book.html', {'form': form})
 
 @permission_required('bookshelf.can_delete', raise_exception=True)
 def delete_book(request, pk):
