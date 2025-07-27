@@ -17,10 +17,19 @@ class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
 
+      # Add custom permissions
+    class Meta:
+        permissions = [
+            ("can_create", "Can create objects"),
+            ("can_delete", "Can delete objects"),
+        ]
+
+
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []  # You can add additional required fields here
 
-    objects = CustomUserManager()
+    objects = None
 
     def __str__(self):
         return self.email  
@@ -52,4 +61,6 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
 
         return self.create_user(email, password, **extra_fields)
+    
+CustomUser.objects = CustomUserManager()
 
